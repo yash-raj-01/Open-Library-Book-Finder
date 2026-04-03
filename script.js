@@ -1,47 +1,85 @@
-const searchInput = document.getElementById('searchInput');
-const searchBtn = document.getElementById('searchBtn');
-const resultsDiv = document.getElementById('results');
-const loadingDiv = document.getElementById('loading');
+const searchBox = document.getElementById('searchBox');
+const findBtn = document.getElementById('findBtn');
+const bookList = document.getElementById('bookList');
+const loader = document.getElementById('loader');
+const filterBox = document.getElementById('filterBox');
+const sortDropdown = document.getElementById('sortDropdown');
+const filterDropdown = document.getElementById('filterDropdown');
+const themeBtn = document.getElementById('themeBtn');
 
-function doSearch() {
-    const query = searchInput.value.trim();
-    if (!query) {
-        return;
-    }
+let data = [];
 
-    loadingDiv.classList.remove('hidden');
-    resultsDiv.innerHTML = '';
+function find() {
+    const val = searchBox.value.trim();
+    if (!val) return;
 
-    fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&mode=everything`)
+    loader.classList.remove('hidden');
+    bookList.innerHTML = '';
+
+    fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(val)}&limit=100`)
         .then(res => res.json())
-        .then(data => {
-            if (!data.docs || data.docs.length === 0) {
-                resultsDiv.innerHTML = '<p class="status-msg">No books directly matched your search.</p>';
+        .then(json => {
+            if (!json.docs || json.docs.length === 0) {
+                bookList.innerHTML = '<p class="info-text">No books found.</p>';
             } else {
-                render(data.docs);
+                data = json.docs;
+                refresh();
             }
-            loadingDiv.classList.add('hidden');
+            loader.classList.add('hidden');
         })
         .catch(err => {
             console.error(err);
-            resultsDiv.innerHTML = '<p class="status-msg">No books directly matched your search.</p>';
-            loadingDiv.classList.add('hidden');
+            bookList.innerHTML = '<p class="info-text">Error fetching data.</p>';
+            loader.classList.add('hidden');
         });
 }
 
-searchBtn.onclick = doSearch;
+function refresh() {
+    let result = [...data];
 
-searchInput.onkeydown = (e) => {
-    if (e.key === 'Enter') {
-        doSearch();
+    const searchText = filterBox.value.toLowerCase();
+    if (searchText) {
+        result = result.filter(book => {
+            const title = book.title ? book.title.toLowerCase() : "";
+            const author = book.author_name ? book.author_name[0].toLowerCase() : "";
+            return title.includes(searchText) || author.includes(searchText);
+        });
     }
-};
 
-function render(books) {
-    resultsDiv.innerHTML = books.map(book => {
+    const mode = filterDropdown.value;
+    if (mode === 'recent') {
+        result = result.filter(book => book.first_publish_year > 2000);
+    } else if (mode === 'classic') {
+        result = result.filter(book => book.first_publish_year <= 2000);
+    }
+
+    const sortBy = sortDropdown.value;
+    if (sortBy === 'titleAsc') {
+        result.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'titleDesc') {
+        result.sort((a, b) => b.title.localeCompare(a.title));
+    } else if (sortBy === 'newest') {
+        result.sort((a, b) => (b.first_publish_year || 0) - (a.first_publish_year || 0));
+    } else if (sortBy === 'oldest') {
+        result.sort((a, b) => (a.first_publish_year || 9999) - (b.first_publish_year || 9999));
+    } else if (sortBy === 'famous') {
+        result.sort((a, b) => (b.edition_count || 0) - (a.edition_count || 0));
+    }
+
+    show(result);
+}
+
+function show(books) {
+    if (books.length === 0) {
+        bookList.innerHTML = '<p class="info-text">No matches found.</p>';
+        return;
+    }
+
+    bookList.innerHTML = books.map(book => {
         const cover = book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : 'https://via.placeholder.com/150x200?text=No+Cover';
+        
         return `
-            <div class="book-card">
+            <div class="card">
                 <img src="${cover}" alt="cover">
                 <h3>${book.title}</h3>
                 <p>By ${book.author_name ? book.author_name[0] : 'Unknown'}</p>
@@ -50,3 +88,19 @@ function render(books) {
         `;
     }).join('');
 }
+
+themeBtn.onclick = () => {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+        themeBtn.textContent = 'Light';
+    } else {
+        themeBtn.textContent = 'Dark';
+    }
+};
+
+findBtn.onclick = find;
+searchBox.onkeydown = (e) => { if (e.key === 'Enter') find(); };
+
+filterBox.oninput = refresh;
+sortDropdown.onchange = refresh;
+filterDropdown.onchange = refresh;

@@ -3,22 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Library Search</title>
+    <title>Book Finder</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <h1>Book Finder</h1>
+        <button id="themeBtn">Dark</button>
     </header>
 
     <main>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search for books...">
-            <button id="searchBtn">Search</button>
+        <div class="search-area">
+            <input type="text" id="searchBox" placeholder="Search books...">
+            <button id="findBtn">Search</button>
         </div>
 
-        <div id="loading" class="hidden">Searching...</div>
-        <div id="results" class="book-grid"></div>
+        <div class="filter-bar">
+            <input type="text" id="filterBox" placeholder="Filter by author or keyword...">
+            
+            <select id="sortDropdown">
+                <option value="default">Sort by</option>
+                <option value="titleAsc">A-Z</option>
+                <option value="titleDesc">Z-A</option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="famous">Most Editions</option>
+            </select>
+
+            <select id="filterDropdown">
+                <option value="all">All</option>
+                <option value="recent">Recent (>2000)</option>
+                <option value="classic">Classic (<=2000)</option>
+            </select>
+        </div>
+
+        <div id="loader" class="hidden">Searching...</div>
+        <div id="bookList" class="grid"></div>
     </main>
 
     <script src="script.js"></script>

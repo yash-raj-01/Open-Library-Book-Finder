@@ -5,38 +5,60 @@ body {
 }
 
 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.search-box {
-    margin-bottom: 20px;
+#themeBtn {
+    padding: 8px 16px;
+    cursor: pointer;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-area {
+    margin-bottom: 10px;
     display: flex;
     gap: 10px;
 }
 
-#searchInput {
+#searchBox {
     padding: 8px;
     width: 300px;
 }
 
-#searchBtn {
+#findBtn {
     padding: 8px 16px;
     cursor: pointer;
 }
 
-.book-grid {
+.filter-bar {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-bar input, .filter-bar select {
+    padding: 8px;
+}
+
+.grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
 
-.book-card {
+.card {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 4px;
 }
 
-.book-card img {
+.card img {
     max-width: 100%;
     height: auto;
 }
@@ -45,3 +67,25 @@ header {
     display: none;
 }
 
+.info-text {
+    color: #666;
+}
+
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+body.dark-mode .card {
+    border-color: #444;
+    background-color: #2a2a2a;
+}
+
+body.dark-mode #searchBox, 
+body.dark-mode #filterBox, 
+body.dark-mode select, 
+body.dark-mode #themeBtn {
+    background-color: #333;
+    color: #f0f0f0;
+    border-color: #555;
+}
