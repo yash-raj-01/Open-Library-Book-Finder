@@ -1,29 +1,29 @@
-const naam  = document.getElementById('naam');
+const naam = document.getElementById('naam');
 const batao = document.getElementById('batao');
 const jagah = document.getElementById('jagah');
-const ruk   = document.getElementById('ruk');
-const kuch  = document.getElementById('kuch');
-const aise  = document.getElementById('aise');
+const ruk = document.getElementById('ruk');
+const kuch = document.getElementById('kuch');
+const aise = document.getElementById('aise');
 const samay = document.getElementById('samay');
-const kala  = document.getElementById('kala');
+const kala = document.getElementById('kala');
 const lakshya = document.getElementById('lakshya');
 
 const dLib = document.getElementById('dLib');
 const dBrw = document.getElementById('dBrw');
-const hk   = document.getElementById('hk');
-const hkt  = document.getElementById('hkt');
-const hv   = document.getElementById('hv');
+const hk = document.getElementById('hk');
+const hkt= document.getElementById('hkt');
+const hv = document.getElementById('hv');
 const jLib = document.getElementById('jLib');
-const lkB  = document.getElementById('lkB');
-const wpj  = document.getElementById('wpj');
+const lkB = document.getElementById('lkB');
+const wpj = document.getElementById('wpj');
 
 let data = [];
-let mkh  = [];
+let mkh= [];
 
 dLib.onclick = (e) => {
     e.preventDefault();
-    hk.style.display  = 'none';
-    hv.style.display  = 'none';
+    hk.style.display = 'none';
+    hv.style.display = 'none';
     hkt.style.display = 'block';
     dLib.classList.add('active');
     dBrw.classList.remove('active');
@@ -33,8 +33,8 @@ dLib.onclick = (e) => {
 dBrw.onclick = (e) => {
     e.preventDefault();
     hkt.style.display = 'none';
-    hv.style.display  = 'none';
-    hk.style.display  = 'block';
+    hv.style.display = 'none';
+    hk.style.display= 'block';
     dBrw.classList.add('active');
     dLib.classList.remove('active');
     if (data.length > 0) refresh();
@@ -50,23 +50,21 @@ wpj.onclick = () => {
 };
 
 async function showDet(key, title, author, cover, subject, year) {
-    hk.style.display  = 'none';
+    hk.style.display = 'none';
     hkt.style.display = 'none';
-    hv.style.display  = 'block';
+    hv.style.display = 'block';
 
-    document.getElementById('vCh').src          = cover;
-    document.getElementById('vTag').textContent  = subject.slice(0, 20);
-    document.getElementById('vNm').textContent   = title;
-    document.getElementById('vLk').textContent   = author;
-    document.getElementById('vSl').textContent   = year;
+    document.getElementById('vCh').src = cover;
+    document.getElementById('vTag').textContent = subject.slice(0, 20);
+    document.getElementById('vNm').textContent = title;
+    document.getElementById('vLk').textContent = author;
+    document.getElementById('vSl').textContent = year;
 
     const isRead = mkh.some(b => b.key === key);
     const safeT  = title.replace(/'/g, "\\'");
     const safeA  = author.replace(/'/g, "\\'");
 
-    const readBtn = isRead
-        ? `<button class="padh-liya-btn" style="background-color:#112211;color:#F0F0F0;border:none;padding:12px 24px;border-radius:4px;font-weight:700;letter-spacing:1px;" disabled>I'VE READ THIS ✓</button>`
-        : `<button class="padh-liya-btn" style="background-color:#112211;color:#F0F0F0;border:none;padding:12px 24px;border-radius:4px;font-weight:700;letter-spacing:1px;" onclick="parlia(event,'${key}','${safeT}','${safeA}','${cover}','${subject}','${year}')">I'VE READ THIS</button>`;
+    const readBtn = isRead ? `<button class="padh-liya-btn" style="background-color:#112211;color:#F0F0F0;border:none;padding:12px 24px;border-radius:4px;font-weight:700;letter-spacing:1px;" disabled>I'VE READ THIS ✓</button>` : `<button class="padh-liya-btn" style="background-color:#112211;color:#F0F0F0;border:none;padding:12px 24px;border-radius:4px;font-weight:700;letter-spacing:1px;" onclick="parlia(event,'${key}','${safeT}','${safeA}','${cover}','${subject}','${year}')">I'VE READ THIS</button>`;
 
     document.getElementById('vBt').innerHTML = readBtn;
 
@@ -76,7 +74,7 @@ async function showDet(key, title, author, cover, subject, year) {
     document.getElementById('vRt').innerHTML = '';
 
     try {
-        const res  = await fetch(`https://openlibrary.org${key}.json`);
+        const res = await fetch(`https://openlibrary.org${key}.json`);
         const json = await res.json();
 
         if (json.description) {
@@ -101,13 +99,13 @@ async function showDet(key, title, author, cover, subject, year) {
         document.getElementById('vSt').innerHTML = statsHTML;
 
         try {
-            const rRes  = await fetch(`https://openlibrary.org${key}/ratings.json`);
+            const rRes = await fetch(`https://openlibrary.org${key}/ratings.json`);
             const rJson = await rRes.json();
 
             if (rJson && rJson.summary && rJson.summary.average) {
-                const r    = rJson.summary.average;
+                const r = rJson.summary.average;
                 const full = Math.floor(r);
-                const dec  = r - full;
+                const dec = r - full;
 
                 const stars = Array.from({ length: 5 }, (_, i) => {
                     if (i < full) return '<span style="color:#FFC107;">★</span>';
@@ -136,8 +134,10 @@ async function showDet(key, title, author, cover, subject, year) {
 }
 
 function showLib() {
-    if (lakshya) lakshya.textContent = mkh.length;
-    if (lkB)     lkB.textContent     = mkh.length;
+    if (lakshya){
+        lakshya.textContent = mkh.length;}
+    if (lkB){
+        lkB.textContent = mkh.length;}
 
     if (mkh.length === 0) {
         jLib.innerHTML = '<p class="fgh" style="grid-column:1/-1;text-align:center;margin-top:50px;">Your bookshelf is empty! Go back to Browse some books to log your first read.</p>';
@@ -155,10 +155,10 @@ function showLib() {
     }
 
     jLib.innerHTML = libraryData.map(book => {
-        const safeTitle  = book.title.replace(/'/g, "\\'").replace(/"/g, '\\"');
-        const authorStr  = book.author || 'Unknown';
+        const safeTitle = book.title.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        const authorStr = book.author || 'Unknown';
         const safeAuthor = authorStr.replace(/'/g, "\\'").replace(/"/g, '\\"');
-        const safeSubj   = book.subject.replace(/'/g, "\\'");
+        const safeSubj = book.subject.replace(/'/g, "\\'");
 
         return `
             <div class="kitaab" onclick="showDet('${book.key}','${safeTitle}','${safeAuthor}','${book.cover}','${safeSubj}','${book.year}')">
@@ -188,13 +188,15 @@ function parlia(event, key, title, author, cover, subject, year) {
 
     mkh.unshift({ key, title, author, cover, subject, year });
 
-    if (lakshya) lakshya.textContent = mkh.length;
-    if (lkB)     lkB.textContent     = mkh.length;
+    if (lakshya){
+        lakshya.textContent = mkh.length;}
+    if (lkB){
+        lkB.textContent = mkh.length;}
 
-    event.target.textContent       = 'Read ✓';
+    event.target.textContent = 'Read ✓';
     event.target.style.backgroundColor = '#EBF3EF';
-    event.target.style.color           = '#2F694F';
-    event.target.style.borderColor     = '#C4D7CF';
+    event.target.style.color = '#2F694F';
+    event.target.style.borderColor = '#C4D7CF';
     event.target.disabled = true;
 }
 
@@ -206,7 +208,7 @@ async function find() {
     jagah.innerHTML = '';
 
     try {
-        const res  = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(val)}&limit=100`);
+        const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(val)}&limit=100`);
         const json = await res.json();
 
         if (!json.docs || json.docs.length === 0) {
@@ -229,22 +231,22 @@ function refresh() {
     const searchText = kuch.value.toLowerCase();
     if (searchText) {
         result = result.filter(book => {
-            const t = book.title       ? book.title.toLowerCase()             : '';
+            const t = book.title ? book.title.toLowerCase()             : '';
             const a = book.author_name ? book.author_name[0].toLowerCase()    : '';
             return t.includes(searchText) || a.includes(searchText);
         });
     }
 
     const mode = samay.value;
-    if (mode === 'recent')  result = result.filter(book => book.first_publish_year > 2000);
+    if (mode === 'recent') result = result.filter(book => book.first_publish_year > 2000);
     if (mode === 'classic') result = result.filter(book => book.first_publish_year <= 2000);
 
     const sortBy = aise.value;
-    if (sortBy === 'titleAsc')  result.sort((a, b) => a.title.localeCompare(b.title));
+    if (sortBy === 'titleAsc') result.sort((a, b) => a.title.localeCompare(b.title));
     if (sortBy === 'titleDesc') result.sort((a, b) => b.title.localeCompare(a.title));
-    if (sortBy === 'newest')    result.sort((a, b) => (b.first_publish_year || 0)    - (a.first_publish_year || 0));
-    if (sortBy === 'oldest')    result.sort((a, b) => (a.first_publish_year || 9999) - (b.first_publish_year || 9999));
-    if (sortBy === 'famous')    result.sort((a, b) => (b.edition_count || 0)         - (a.edition_count || 0));
+    if (sortBy === 'newest') result.sort((a, b) => (b.first_publish_year || 0) - (a.first_publish_year || 0));
+    if (sortBy === 'oldest') result.sort((a, b) => (a.first_publish_year || 9999) - (b.first_publish_year || 9999));
+    if (sortBy === 'famous') result.sort((a, b) => (b.edition_count || 0) - (a.edition_count || 0));
 
     show(result);
 }
@@ -260,20 +262,18 @@ function show(books) {
 
     jagah.innerHTML = books.map(book => {
         const bookCover  = book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg` : '';
-        const cover      = bookCover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80';
-        const tag        = book.subject ? book.subject[0].toUpperCase() : 'LITERATURE';
-        const bookKey    = book.key;
-        const authorStr  = book.author_name ? book.author_name[0] : 'Unknown';
-        const yearStr    = book.first_publish_year || 'N/A';
+        const cover = bookCover || 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80';
+        const tag = book.subject ? book.subject[0].toUpperCase() : 'LITERATURE';
+        const bookKey = book.key;
+        const authorStr = book.author_name ? book.author_name[0] : 'Unknown';
+        const yearStr = book.first_publish_year || 'N/A';
 
-        const safeTitle  = book.title.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        const safeTitle = book.title.replace(/'/g, "\\'").replace(/"/g, '\\"');
         const safeAuthor = authorStr.replace(/'/g, "\\'").replace(/"/g, '\\"');
-        const safeSubj   = tag.replace(/'/g, "\\'");
+        const safeSubj = tag.replace(/'/g, "\\'");
 
         const isRead = mkh.some(b => b.key === bookKey);
-        const btn = isRead
-            ? `<button class="padh-liya-btn" onclick="event.stopPropagation()" style="background-color:#EBF3EF;color:#2F694F;border-color:#C4D7CF" disabled>Read ✓</button>`
-            : `<button class="padh-liya-btn" onclick="parlia(event,'${bookKey}','${safeTitle}','${safeAuthor}','${cover}','${safeSubj}','${yearStr}')">I've read this</button>`;
+        const btn = isRead ? `<button class="padh-liya-btn" onclick="event.stopPropagation()" style="background-color:#EBF3EF;color:#2F694F;border-color:#C4D7CF" disabled>Read ✓</button>` : `<button class="padh-liya-btn" onclick="parlia(event,'${bookKey}','${safeTitle}','${safeAuthor}','${cover}','${safeSubj}','${yearStr}')">I've read this</button>`;
 
         return `
             <div class="kitaab" onclick="showDet('${bookKey}','${safeTitle}','${safeAuthor}','${cover}','${safeSubj}','${yearStr}')">
@@ -300,8 +300,8 @@ kala.onclick = () => {
 batao.onclick = find;
 naam.onkeydown = (e) => { if (e.key === 'Enter') find(); };
 
-kuch.oninput   = refresh;
-aise.onchange  = refresh;
+kuch.oninput = refresh;
+aise.onchange = refresh;
 samay.onchange = refresh;
 
 const libSrt = document.getElementById('libSrt');
