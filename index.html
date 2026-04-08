@@ -3,43 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Finder</title>
+    <title>The Infinite Shelf</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <h1>Book Finder</h1>
-        <button id="themeBtn">Dark</button>
+<body class="a">
+    <header class="b">
+        <div class="c">The Infinite Shelf</div>
+        <nav class="d resp-nav">
+            <a href="#" id="dLib" class="e">My Library</a>
+            <a href="#" id="dBrw" class="f active">Browse</a>
+        </nav>
+        <div class="h">
+            <div class="mlk" style="font-size: 13px; font-weight: 600; color: var(--accent-gold); margin-right: 15px;">Goal: <span id="lakshya">0</span>/50</div>
+            <button id="kala" class="i">Dark</button>
+        </div>
     </header>
 
-    <main>
-        <div class="search-area">
-            <input type="text" id="searchBox" placeholder="Search books...">
-            <button id="findBtn">Search</button>
-        </div>
+    <div id="hk" style="display: block;">
+        <main class="l resp-main">
+            <aside class="m">
+                <h3 class="n">Refine Results</h3>
+                
+                <div class="o">
+                    <h4 class="p">FILTER BY TEXT</h4>
+                    <input type="text" id="kuch" class="q" placeholder="Enter keywords...">
+                </div>
 
-        <div class="filter-bar">
-            <input type="text" id="filterBox" placeholder="Filter by author or keyword...">
+                <div class="o" style="margin-top: 30px;">
+                    <h4 class="p">PUBLICATION ERA</h4>
+                    <select id="samay" class="q">
+                        <option value="all">All Eras</option>
+                        <option value="recent">Recent (>2000)</option>
+                        <option value="classic">Classic (<=2000)</option>
+                    </select>
+                </div>
+            </aside>
+
+            <section class="hello">
+                <div class="hi">
+                    <div class="yash">
+                        <span class="w">SEARCH QUERY</span>
+                        <div class="x">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="naam" class="y" placeholder="Search for books...">
+                            <button id="batao" class="z">Search</button>
+                        </div>
+                    </div>
+
+                    <div class="as">
+                        <span id="kitne" class="qwe">0 results found</span>
+                        <div class="rty">
+                            <select id="aise" class="uio">
+                                <option value="default">Relevance</option>
+                                <option value="titleAsc">Title A-Z</option>
+                                <option value="titleDesc">Title Z-A</option>
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="famous">Most Editions</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ruk" class="hidden fgh">Consulting the archives...</div>
+                <div id="jagah" class="kitaab-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="hkt" style="display: none;">
+        <main class="l resp-main" style="flex-direction: column; align-items: center; max-width: 1000px; margin-top:20px;">
             
-            <select id="sortDropdown">
-                <option value="default">Sort by</option>
-                <option value="titleAsc">A-Z</option>
-                <option value="titleDesc">Z-A</option>
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-                <option value="famous">Most Editions</option>
-            </select>
+            <div class="resp-banner" style="background-color: #1A2F25; color: white; border-radius: 8px; width: 100%; padding: 40px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
+                <div class="resp-banner-text">
+                    <h1 style="font-family: 'Playfair Display', serif; font-size: 32px; margin: 0 0 10px 0; color: #FFFFFF;">Reading Goal 2024</h1>
+                    <p style="font-size: 14px; margin: 0; color: #8CBAA4; max-width: 350px; line-height: 1.5;">You're expanding your literary archive. Track your current objective and curated collection.</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="display: flex; gap: 30px; align-items: flex-end;">
+                        <div>
+                            <div style="font-size: 48px; font-weight: 700; color: var(--accent-gold); line-height: 1;"><span id="lkB">0</span></div>
+                            <div style="font-size: 10px; font-weight: 700; letter-spacing: 1.5px; opacity: 0.8; margin-top: 8px; text-transform: uppercase;">FINISHED</div>
+                        </div>
+                        <div style="padding-bottom:10px; font-size:32px; opacity: 0.3; font-weight: 100;">|</div>
+                        <div>
+                            <div style="font-size: 48px; font-weight: 700; line-height: 1; color: #FFFFFF;">50</div>
+                            <div style="font-size: 10px; font-weight: 700; letter-spacing: 1.5px; opacity: 0.8; margin-top: 8px; text-transform: uppercase;">ANNUAL GOAL</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;">
+                    <div>
+                        <h2 style="font-family: 'Playfair Display', serif; font-size: 24px; margin: 0 0 5px 0;">Personal Bookshelf</h2>
+                        <p style="font-size: 14px; color: var(--text-muted); font-style: italic; margin: 0;">Refining your literary journey, one page at a time.</p>
+                    </div>
+                    <div style="font-size: 11px; font-weight: 600; border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 4px; background: var(--input-bg); color: var(--text-main);">
+                        SORT BY: 
+                        <select id="libSrt" style="background: transparent; border: none; font-size: 11px; font-weight: 600; color: var(--text-main); cursor: pointer; outline: none; margin-left: 5px;">
+                            <option value="lastAdded">Last Added</option>
+                            <option value="titleAsc">Title A-Z</option>
+                            <option value="titleDesc">Title Z-A</option>
+                            <option value="authorAsc">Author A-Z</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="jLib" class="kitaab-grid" style="gap:50px;"></div>
+            </div>
+        </main>
+    </div>
 
-            <select id="filterDropdown">
-                <option value="all">All</option>
-                <option value="recent">Recent (>2000)</option>
-                <option value="classic">Classic (<=2000)</option>
-            </select>
+    <div id="hv" style="display: none; width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px;">
+        <div style="margin-bottom: 40px; cursor: pointer; display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; color: var(--text-muted);" id="wpj">
+            ← BACK TO BOOKSHELF
         </div>
-
-        <div id="loader" class="hidden">Searching...</div>
-        <div id="bookList" class="grid"></div>
-    </main>
+        
+        <div class="resp-detail" style="display: flex; gap: 60px; align-items: flex-start;">
+            <div class="resp-detail-left" style="width: 350px; flex-shrink: 0;">
+                <div class="cover-wrapper" style="box-shadow: 0 10px 30px rgba(0,0,0,0.15); border-radius: 4px; aspect-ratio: 2/3; overflow: hidden; background: var(--input-bg);">
+                    <img id="vCh" src="" alt="cover" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+            
+            <div style="flex-grow: 1;">
+                <div id="vTag" class="badge" style="display:inline-block; border-radius: 4px; font-size:10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px;"></div>
+                
+                <h1 id="vNm" style="font-family: 'Playfair Display', serif; font-size: 48px; margin: 0 0 15px 0; color: var(--text-main); line-height: 1.1;"></h1>
+                
+                <p style="font-size: 16px; color: var(--text-muted); margin: 0 0 30px 0; font-style: italic;">
+                    <span id="vLk" style="color: var(--text-main); font-weight: 500; font-style: normal;"></span> <span style="opacity: 0.5; margin: 0 10px; color: var(--text-muted);">|</span> <span style="color: var(--text-muted);">Published</span> <span id="vSl" style="color: var(--text-muted);"></span>
+                </p>
+                
+                <div id="vKh" style="font-size: 15px; line-height: 1.8; color: var(--text-main); margin-bottom: 40px; opacity: 0.9;">
+                    Consulting the archives...
+                </div>
+                
+                <div id="vRt"></div>
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 50px;" id="vBt">
+                </div>
+                
+                <div style="display: flex; border-top: 1px solid var(--border-color); padding-top: 30px; gap: 50px;" id="vSt">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
